@@ -23,7 +23,7 @@ const bundles = [
     },
     {
         format: 'es',
-        ext: '.mjs',
+        ext: '.js',
         dir: 'es',
         moduleName: 'jsignal',
         plugins: [ ],
@@ -41,7 +41,9 @@ const bundles = [
         moduleName: 'jsignal',
         plugins: [ ],
         babelPresets: ['es2015-rollup', 'stage-0'],
-        babelPlugins: [ ]
+        babelPlugins: [
+            //'external-helpers'
+        ]
     },
     {
         format: 'umd',
@@ -50,7 +52,9 @@ const bundles = [
         moduleName: 'jsignal',
         plugins: [ ],
         babelPresets: ['es2015-rollup', 'stage-0'],
-        babelPlugins: [ ],
+        babelPlugins: [
+            //'transform-runtime'
+        ],
     },
     {
         format: 'umd',
@@ -59,17 +63,17 @@ const bundles = [
         moduleName: 'jsignal',
         plugins: [uglify()],
         babelPresets: ['es2015-rollup', 'stage-0'],
-        babelPlugins: [ ],
+        babelPlugins: [
+            //'transform-runtime'
+        ],
         minify: true
     }
 ];
 
 let promise = Promise.resolve();
 
-// Clean up the output directory
 promise = promise.then(() => del(['dist/*']));
 
-// Compile source code into a distributable format with Babel and Rollup
 for (const config of bundles) {
     promise = promise
         .then(() => rollup
@@ -81,7 +85,9 @@ for (const config of bundles) {
                         babelrc: false,
                         exclude: 'node_modules/**',
                         presets: config.babelPresets,
-                        plugins: config.babelPlugins,
+                        plugins: ['external-helpers', 'transform-runtime'].concat(config.babelPlugins),
+                        externalHelpers: true,
+                        runtimeHelpers: true
                     })
                 ].concat(config.plugins),
             })
@@ -94,15 +100,18 @@ for (const config of bundles) {
     );
 }
 
-// Copy package.json and LICENSE.txt
 promise = promise.then(() => {
     delete pkg.private;
     delete pkg.devDependencies;
     delete pkg.scripts;
     delete pkg.eslintConfig;
     delete pkg.babel;
+    pkg['main']        = pkg['main']       .split('/').slice(1, 3).join('/');//var pkgMain = pkg['main'].split('/').splice(0, 1).join('/');// delete pkgMain[0]; pkg['main'] = pkgMain.join('/');
+    pkg['jsnext:main'] = pkg['jsnext:main'].split('/').slice(1, 3).join('/');//var pkgJsnextMain = pkg['jsnext:main'].split('/').splice(0, 1).join('/');// delete pkgJsnextMain[0]; pkg['jsnext:main'] = pkgJsnextMain.join('/');
+    pkg['browser']     = pkg['browser']    .split('/').slice(1, 3).join('/');//var pkgBrowser = pkg['browser'].split('/').split('/').splice(0, 1).join('/');// delete pkgBrowser[0]; pkg['browser'] = pkgBrowser.join('/');
+    pkg['module']      = pkg['module']     .split('/').slice(1, 3).join('/');//var pkgModule = pkg['module'].split('/').split('/').splice(0, 1).join('/');// delete pkgModule[0]; pkg['module'] = pkgModule.join('/');
     fs.writeFileSync('dist/package.json', JSON.stringify(pkg, null, '  '), 'utf-8');
     fs.writeFileSync('dist/LICENSE.txt', fs.readFileSync('LICENSE', 'utf-8'), 'utf-8');
 });
 
-promise.catch(err => console.error(err.stack)); // eslint-disable-line no-console
+promise.catch(err => console.error(err.stack));

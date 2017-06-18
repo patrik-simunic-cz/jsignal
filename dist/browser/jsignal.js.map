@@ -1,1 +1,0 @@
-{"version":3,"file":"jsignal.js","sources":["../../src/index.js"],"sourcesContent":["'use strict'\n\nclass jSignal {\n    constructor() { }\n\n    listen() {\n\n    }\n\n    unlisten() {\n\n    }\n\n    dispatch() {\n\n    }\n\n    dispose() {\n\n    }\n}\n\nexport default jSignal\n"],"names":["jSignal"],"mappings":";;IAEMA;uBACY;;;;;;iCAEL;;;mCAIE;;;mCAIA;;;kCAID;;;IAKd;;"}
