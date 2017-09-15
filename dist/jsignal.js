@@ -1,5 +1,21 @@
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
+
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -32,37 +48,55 @@ var jSignal = function () {
 
     createClass(jSignal, [{
         key: 'listen',
-        value: function listen(listener) {
-            if (this._listeners === undefined || this._listeners === null) return console.error('Cannot listen on destroyed jSignal;', 'listener:', listener);
-            if (typeof listener !== 'function') throw new Error('jSignal.listen expects a function');
-            this._listeners.push(listener);
+        value: function listen() {
+            if (this._listeners === undefined || this._listeners === null) {
+                throw new Error('Cannot listen on destroyed jSignal');
+            }
+            for (var i in arguments) {
+                if (typeof arguments[i] !== 'function') {
+                    console.error('jSignal.listen expects a function (or functions), but got ', _typeof(arguments[i]), '; on paramentr number ', i);
+                } else {
+                    this._listeners.push(arguments[i]);
+                }
+            }
         }
     }, {
         key: 'unlisten',
-        value: function unlisten(listener) {
-            if (this._listeners === undefined || this._listeners === null) return console.error('Cannot unlisten on destroyed jSignal;', 'listener:', listener);
-            if (typeof listener !== 'function') throw new Error('jSignal.unlisten expects a function');
-            var listenerIndex = this._listeners.indexOf(listener);
-            delete this._listeners[listenerIndex];
+        value: function unlisten() {
+            if (this._listeners === undefined || this._listeners === null) {
+                throw new Error('Cannot unlisten on destroyed jSignal');
+            }
+            for (var i in arguments) {
+                if (typeof arguments[i] !== 'function') {
+                    console.error('jSignal.unlisten expects a function (or functions), but got ', _typeof(arguments[i]), '; on paramentr number ', i);
+                } else {
+                    var listenerIndex = this._listeners.indexOf(arguments[i]);
+                    if (listenerIndex != -1) {}
+                    delete this._listeners[listenerIndex];
+                }
+            }
         }
     }, {
         key: 'dispatch',
         value: function dispatch() {
-            var _console;
+            var _arguments = arguments;
 
-            for (var _len = arguments.length, payload = Array(_len), _key = 0; _key < _len; _key++) {
-                payload[_key] = arguments[_key];
+            if (this._listeners === undefined || this._listeners === null) {
+                throw new Error('Cannot dispatch an destroyed jSignal');
             }
-
-            if (this._listeners === undefined || this._listeners === null) return (_console = console).error.apply(_console, ['Cannot dispatch destroyed jSignal;', 'with payload:'].concat(payload));
+            if (this._listeners === undefined || this._listeners === null) {
+                return console.error('Cannot dispatch destroyed jSignal;', 'with payload:', arguments);
+            }
             this._listeners.map(function (listener) {
-                return listener.apply(undefined, payload);
+                return listener(_arguments);
             });
         }
     }, {
         key: 'dispose',
         value: function dispose() {
-            if (this._listeners === undefined || this._listeners === null) return console.error('Cannot dispose destroyed jSignal');
+            if (this._listeners === undefined || this._listeners === null) {
+                throw new Error('Cannot dispose destroyed jSignal');
+            }
             this._listeners = [];
         }
     }, {
