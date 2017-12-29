@@ -30,14 +30,14 @@ class jSignal {
         }
     }
 
-    dispatch() {
+    dispatch(...payload) {
         if (this._listeners === undefined || this._listeners === null) {
             throw new Error('Cannot dispatch an destroyed jSignal')
         }
         if (this._listeners === undefined || this._listeners === null) {
-            return console.error('Cannot dispatch destroyed jSignal;', 'with payload:', ...arguments)
+            return console.error('Cannot dispatch destroyed jSignal;', 'with payload:', ...payload)
         }
-        this._listeners.map(listener => listener(...arguments))
+        this._listeners.map(listener => listener(...payload))
     }
 
     dispose() {

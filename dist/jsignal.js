@@ -79,16 +79,20 @@ var jSignal = function () {
     }, {
         key: 'dispatch',
         value: function dispatch() {
-            var _arguments = arguments;
+            for (var _len = arguments.length, payload = Array(_len), _key = 0; _key < _len; _key++) {
+                payload[_key] = arguments[_key];
+            }
 
             if (this._listeners === undefined || this._listeners === null) {
                 throw new Error('Cannot dispatch an destroyed jSignal');
             }
             if (this._listeners === undefined || this._listeners === null) {
-                return console.error('Cannot dispatch destroyed jSignal;', 'with payload:', arguments);
+                var _console;
+
+                return (_console = console).error.apply(_console, ['Cannot dispatch destroyed jSignal;', 'with payload:'].concat(payload));
             }
             this._listeners.map(function (listener) {
-                return listener(_arguments);
+                return listener.apply(undefined, payload);
             });
         }
     }, {
