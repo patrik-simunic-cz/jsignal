@@ -1,36 +1,30 @@
 {
   "name": "jsignal",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "description": "ECMAScript 2015 compatibe signals",
-  "repository": "https://github.com/7h3w4rd0c70r/jsignal.git",
-  "bug": "https://github.com/7h3w4rd0c70r/jsignal/issues",
-  "main": "dist/jsignal.js",
-  "jsnext:main": "dist/jsignal.js",
-  "browser": "dist/jsignal.js",
-  "module": "dist/jsignal.js",
-  "scripts": {
-    "build": "rollup -c"
-  },
   "keywords": [
     "jsignal",
     "signal"
   ],
-  "author": "Patrik Šimunič <patriksimunic@hotmail.com>",
-  "license": "MIT License",
+  "license": "MIT",
+  "author": {
+    "name": "Patrik Šimunič",
+    "email": "patriksimunic@hotmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/7h3w4rd0c70r/jsignal.git"
+  },
+  "bug": "https://github.com/7h3w4rd0c70r/jsignal/issues",
+  "main": "dist/index.js",
+  "jsnext:main": "dist/index.js",
+  "browser": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "./index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
-    "babel-plugin-transform-es2015-function-name": "^6.24.1",
-    "babel-plugin-transform-es2015-parameters": "^6.24.1",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-polyfill": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-es2015-rollup": "^3.0.0",
-    "babel-preset-stage-0": "^6.24.1",
-    "del": "^2.2.2",
-    "rollup": "^0.41.6",
-    "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-uglify": "^2.0.1"
+    "typescript": "^3.1.3"
   }
 }

@@ -1,4 +1,6 @@
 
+.DS_Store
+
 node_modules/
 
 src/
@@ -7,8 +9,4 @@ test/
 playground/
 sandbox/
 
-rollup.config.js
-.babelrc
-build.js
-
-.DS_Store
+*.map
