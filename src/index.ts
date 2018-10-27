@@ -1,5 +1,5 @@
 
-export type Listener<Payload = any> = (payload: Payload) => any
+export type Listener<Payload = any> = (payload?: Payload) => any
 
 export class jSignal<Payload = any> {
     private listeners: Listener<Payload>[] = []
