@@ -11,7 +11,7 @@ export class jSignal<Payload = any> {
 
         this.listeners.push(listener)
     }
-    
+
     public unlisten = (listener: Listener<Payload>): void => {
         if (typeof listener !== 'function') {
             throw new Error(`listener is expected to be a function, but is of type ${typeof listener}`)
