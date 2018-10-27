@@ -1,7 +1,7 @@
 
-export type Listener<Payload> = (payload?: Payload) => any
+export type Listener<Payload extends any = void> = (payload?: Payload) => any
 
-export declare class jSignal<Payload> {
+export declare class jSignal<Payload extends any = void> {
     listen: (listener: Listener<Payload>) => void
     unlisten: (listener: Listener<Payload>) => void
     dispatch: (payload?: Payload) => void
