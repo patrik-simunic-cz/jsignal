@@ -8,6 +8,4 @@ export declare class jSignal<Payload extends any = void> {
     unlistenAll: () => void
 }
 
-declare module 'jsignal' {
-    export default jSignal
-}
+declare module 'jsignal' {}
