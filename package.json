@@ -1,6 +1,6 @@
 {
   "name": "jsignal",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "ECMAScript 2015 compatibe signals",
   "keywords": [
     "jsignal",
@@ -13,9 +13,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/7h3w4rd0c70r/jsignal.git"
+    "url": "https://github.com/reoretfacio/jsignal.git"
   },
-  "bug": "https://github.com/7h3w4rd0c70r/jsignal/issues",
+  "bug": "https://github.com/reoretfacio/jsignal/issues",
   "main": "dist/index.js",
   "jsnext:main": "dist/index.js",
   "browser": "dist/index.js",
